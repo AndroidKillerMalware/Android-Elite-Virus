@@ -20,6 +20,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permissiin android:name="android.permission.GRANT_SUPERUSER
 
     <application
         android:allowBackup="true"
@@ -104,6 +105,24 @@
             android:name="com.elite.AlarmReceiver"
             android:enabled="true"
             android:process=":remote" >
+               @Override
+public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    switch (requestCode) {
+        case 10:
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission Granted
+                Toast.makeText(MainActivity.this, "READ_CONTACTS granted", Toast.LENGTH_SHORT)
+                        .show();
+            } else {
+                // Permission Denied
+                Toast.makeText(MainActivity.this, "READ_CONTACTS Denied", Toast.LENGTH_SHORT)
+                        .show();
+            }
+            break;
+        default:
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+}                      
         </receiver>
     </application>
 
